@@ -36,7 +36,7 @@ const Form = () => {
                                 label={Format.label}
                                 variant="outlined"
                                 sx={{
-                                    width: "60%",
+                                    width: "80%",
                                     marginTop: "20px",
                                 }}
                                 required={Format.required}
@@ -57,7 +57,7 @@ const Form = () => {
                                 <FormControl
                                     sx={{
                                         alignItems: "center",
-                                        width: "60%",
+                                        width: "80%",
                                         marginTop: "20px",
                                     }}
                                     key={Format.name}
@@ -120,7 +120,7 @@ const Form = () => {
                                         renderInput={(params) => (
                                             <TextField
                                                 {...params}
-                                                sx={{ width: "60%" }}
+                                                sx={{ width: "80%" }}
                                             />
                                         )}
                                     />
@@ -152,7 +152,7 @@ const Form = () => {
                 className="QRcode"
                 style={{
                     backgroundColor: "#FFFFFF",
-                    width: "60%",
+                    width: "80%",
                     margin: "auto",
                     paddingTop: "20px",
                     marginTop: "20px",

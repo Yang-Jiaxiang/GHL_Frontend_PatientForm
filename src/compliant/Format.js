@@ -53,13 +53,5 @@ export const Format = {
             label: "生日",
             required: true,
         },
-        {
-            formtype: "Text",
-            name: "Department",
-            label: "單位",
-            type: "String",
-            required: false,
-            disabled: true,
-        },
     ],
 };

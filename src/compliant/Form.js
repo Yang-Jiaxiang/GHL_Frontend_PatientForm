@@ -17,7 +17,7 @@ import { Format } from "./Format";
 
 const Form = () => {
     const [userData, setUserData] = useState({});
-    const [value, setValue] = useState(new Date("2014-08-18T21:11:54"));
+    const [value, setValue] = useState(new Date("2000-01-01"));
     const [showQRcodeDiv, setShowQRcodeDiv] = useState(false);
     const style = {
         marginTop: "20px",
@@ -156,6 +156,7 @@ const Form = () => {
                     margin: "auto",
                     paddingTop: "20px",
                     marginTop: "20px",
+                    borderRadius: "20px",
                 }}
             >
                 <div>

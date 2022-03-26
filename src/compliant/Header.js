@@ -3,12 +3,12 @@ const Header = () => {
         <div
             style={{
                 textAlign: "center",
-                backgroundColor: "#ff78c3",
-                height: "100px",
+                backgroundColor: "#FFC1E0",
+                paddingTop: "1px",
                 padding: 1,
             }}
         >
-            <h1>好心肝診所 超音波檢查</h1>
+            <h1>好心肝診所 超音波檢查表單</h1>
         </div>
     );
 };

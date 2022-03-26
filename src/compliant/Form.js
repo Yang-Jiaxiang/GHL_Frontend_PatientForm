@@ -11,20 +11,20 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { format } from "date-fns";
-import { QRCode } from "react-qr-svg";
+import QRCode from "qrcode.react";
 
-import Format from "./Format.json";
+import { Format } from "./Format";
 
 const Form = () => {
     const [userData, setUserData] = useState({});
     const [value, setValue] = useState(new Date("2014-08-18T21:11:54"));
+    const [showQRcodeDiv, setShowQRcodeDiv] = useState(false);
     const style = {
         marginTop: "20px",
         textAlign: "center",
     };
-
-    return (
-        <div style={style}>
+    const FormDiv = () => {
+        return (
             <div>
                 {Format.Format.map((Format) => {
                     if (Format.formtype === "Text") {
@@ -46,6 +46,7 @@ const Form = () => {
                                         [Format.name]: event.target.value,
                                     });
                                 }}
+                                disabled={Format.disabled}
                             />
                         );
                     }
@@ -117,7 +118,10 @@ const Form = () => {
                                             });
                                         }}
                                         renderInput={(params) => (
-                                            <TextField {...params} />
+                                            <TextField
+                                                {...params}
+                                                sx={{ width: "60%" }}
+                                            />
                                         )}
                                     />
                                 </LocalizationProvider>
@@ -126,7 +130,77 @@ const Form = () => {
                     }
                 })}
             </div>
+        );
+    };
 
+    const downloadQR = () => {
+        const canvas = document.getElementById("QRCode");
+        const pngUrl = canvas
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        let downloadLink = document.createElement("a");
+        downloadLink.href = pngUrl;
+        downloadLink.download = "好心肝診所QRcode.png";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    };
+
+    const QRCodeDiv = () => {
+        return (
+            <div
+                className="QRcode"
+                style={{
+                    backgroundColor: "#FFFFFF",
+                    width: "60%",
+                    margin: "auto",
+                    paddingTop: "20px",
+                    marginTop: "20px",
+                }}
+            >
+                <div>
+                    <QRCode
+                        id="QRCode"
+                        level="Q"
+                        size={200}
+                        value={JSON.stringify(userData)}
+                        renderAs="canvas"
+                    />
+                </div>
+                <Button
+                    sx={{
+                        width: "60%",
+                        marginTop: "20px",
+                        fontSize: "20px",
+                        marginBottom: "20px",
+                    }}
+                    variant="contained"
+                    onClick={() => {
+                        downloadQR();
+                    }}
+                >
+                    下載條碼
+                </Button>
+                <Button
+                    sx={{
+                        width: "60%",
+                        fontSize: "20px",
+                        marginBottom: "20px",
+                    }}
+                    variant="outlined"
+                    color="error"
+                    onClick={() => {
+                        setShowQRcodeDiv(false);
+                    }}
+                >
+                    關閉視窗
+                </Button>
+            </div>
+        );
+    };
+
+    const ButtonDiv = () => {
+        return (
             <Button
                 sx={{
                     width: "60%",
@@ -134,18 +208,21 @@ const Form = () => {
                     fontSize: "20px",
                 }}
                 variant="contained"
-                onClick={() => console.log(userData)}
+                onClick={() => {
+                    console.log(userData);
+                    setShowQRcodeDiv(true);
+                }}
             >
                 產生條碼
             </Button>
+        );
+    };
 
-            <div className="QRcode" styel="display: none">
-                <QRCode
-                    level="Q"
-                    style={{ width: 256 }}
-                    value={JSON.stringify(userData)}
-                />
-            </div>
+    return (
+        <div style={style}>
+            {FormDiv()}
+            {showQRcodeDiv ? null : ButtonDiv()}
+            {showQRcodeDiv ? QRCodeDiv() : null}
         </div>
     );
 };
